@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { BiSearch } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
-import { GoogleLogin, googleLogout  } from '@react-oauth/google';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
 
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
@@ -16,16 +16,16 @@ const Navbar = () => {
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
-  const {  addUser, removeUser } = useAuthStore();
-//   userProfile,
-//   useEffect(() => {
-//     setUser(userProfile);
-//   }, [userProfile]);
+  const { addUser, removeUser } = useAuthStore();
+  //   userProfile,
+  //   useEffect(() => {
+  //     setUser(userProfile);
+  //   }, [userProfile]);
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    
-    if(searchValue) {
+
+    if (searchValue) {
       router.push(`/search/${searchValue}`);
     }
   };
@@ -84,22 +84,22 @@ const Navbar = () => {
                 </div>
               </Link>
             )}
-              <button
-                type='button'
-                className=' border-2 p-2 rounded-full cursor-pointer outline-none shadow-md'
-                onClick={() => {
-                  googleLogout();
-                  removeUser();
-                }}
-              >
-                <AiOutlineLogout color='red' fontSize={21} />
-              </button>
+            <button
+              type='button'
+              className=' border-2 p-2 rounded-full cursor-pointer outline-none shadow-md'
+              onClick={() => {
+                googleLogout();
+                removeUser();
+              }}
+            >
+              <AiOutlineLogout color='red' fontSize={21} />
+            </button>
           </div>
         ) : (
-            <GoogleLogin
-              onSuccess={(response) => createOrGetUser(response, addUser)}
-              onError={() => console.log('Login Failed')}
-            />
+          <GoogleLogin
+            onSuccess={(response) => createOrGetUser(response, addUser)}
+            onError={() => console.log('Login Failed')}
+          />
         )}
       </div>
     </div>
